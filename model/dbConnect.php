@@ -28,24 +28,28 @@
             }
         }
 
-        public function Select($query, $mode = null){//да хуй него знает
-           $sth = $this->dbh->query($query);
-           if($mode){
-               $sth -> setFetchMode($mode);
-           }
-           //return
+        public function Query($type, $query){//1-select, 2-anything else
+            if($type === 1){
+                $sth = $this->dbh->query($query);
+                $sth -> fetch(PDO::FETCH_ASSOC);
+                return $sth;
+            }elseif ($type === 2) {
+                $sth = $this->dbh->prepare($query);
+                $sth->execute();
+            }
         }
 
-        /**
-         * @return mixed
-         */
+        public function getErrmsg()
+        {
+            return $this->errmsg;
+        }
+
         public function getDbh()
         {
             return $this->dbh;
         }
 
-
-        public function __get($value) {
+        public function __get($value) {//yay, magic!
             $test =  'get' . $value;
             return($this->$test);
         }
