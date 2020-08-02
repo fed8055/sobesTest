@@ -9,13 +9,20 @@
 Только админ может управлять всеми записями
 А пользователи только своими
 
-как определять админа?
-сессия или куки?
+как определять админа? - поле в username
+сессия или куки? - куки. админ ли юзер смотреть в контроллере при вызове вьюхи. и соответствующие кнопки.
+как сука сделать пагинатор? -
 
 table username
     id
     name
     username
     password
-    role???
+    is_admin
     hash
+
+table content(caz i dont give a fuck)
+    id
+    content
+    createuserid
+    createtime
