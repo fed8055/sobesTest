@@ -8,7 +8,7 @@
             //если ответ положительный, то обратно на индекс
             //если отрицительный, то на авторизацию
             //не забывать ансетать переменные
-            if (!isset($_POST['login'])){
+            if (!isset($_POST['login_submit'])){
                 include_once 'view/login.php';
             } else{
                 $login = new login();
@@ -20,6 +20,7 @@
                     echo 'Неверный логин/пароль!';
                     unset($_POST['login']);
                     unset($_POST['password']);
+                    unset($_POST['login_submit']);
                 }
             }
         }
@@ -32,7 +33,7 @@
             //если ответ положительный, то обратно на индекс
             //если отрицительный, то на регистрацию
             //не забывать ансетать переменные
-            if (!isset($_POST['login'])) {
+            if (!isset($_POST['register_submit'])) {
                 include_once 'view/register.php';
             }else{
                 $login = new login();
@@ -55,6 +56,7 @@
                     unset($_POST['name']);
                     unset($_POST['surname']);
                     unset($_POST['lastname']);
+                    unset($_POST['register_submit']);
                 }
             }
         }
