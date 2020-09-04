@@ -1,12 +1,13 @@
 <?php
 if(isset($_COOKIE['login'])){
+    echo 'Авторизован как '.$_POST['userFIO'];
     ?>
-    <a href="/controllers/logout.php">Выход</a>
+    <a href="login/logout">Выход</a>
     <?
 }else{
     ?>
-    <a href="/authorize.php">Авторизация</a>
-    <a href="/register.pрp">Регистрация</a>
+    <a href="login/login">Авторизация</a>
+    <a href="login/register">Регистрация</a>
     <?
 }
 ?>

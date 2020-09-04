@@ -1,32 +1,35 @@
 <?php
-    class Route{
-        static function Start(){
+    class Route
+    {
+        static function Start()
+        {
             $contr_name = 'index';//default
             $action = 'index';
 
             //site/controller/action
-            $route = explode('/', $_SERVER['request_url']);
 
-            if(!empty($route[1])) {//передан ли вообще контроллер
-                $contr_name = strtolower($route[1]);
+            $route = explode('/', $_SERVER['REQUEST_URI']);
+
+            if (!empty($route[2])) {//передан ли вообще контроллер
+                $contr_name = strtolower($route[2]);
             }
 
-            if(!empty($route[2])) {//передан ли экшн
-                $action = strtolower($route[2]);
+            if (!empty($route[3])) {//передан ли экшн
+                $action = strtolower($route[3]);
             }
 
-            if (file_exists('controller/'.$contr_name.'.php')) {//если такой файл есть, то включаем его
-                include_once 'controller/'.$contr_name.'.php';
+            if (file_exists('controller/' . $contr_name . '.php')) {//если такой файл есть, то включаем его
+                include_once 'controller/' . $contr_name . '.php';
                 $controller = new $contr_name;//и создаём объект
-                $action = 'action_'.$action;
+                $action = 'action_' . $action;
 
-                if(method_exists($controller, $action)){//есть ли в контроллере такой метод, если есть, то вызываем
-                    $controller -> $action();
+                if (method_exists($controller, $action)) {//есть ли в контроллере такой метод, если есть, то вызываем
+                    $controller->$action();
                 } else {
-                    //todo сделать редирект на 404
+                    //todo
                 }
             } else {
-                //todo сделать редирект на 404
+                include_once 'view/view404.php';
             }
         }
     }
