@@ -9,6 +9,7 @@
             //site/controller/action
 
             $route = explode('/', $_SERVER['REQUEST_URI']);
+            //var_dump($_SERVER['DOCUMENT_ROOT']);
 
             if (!empty($route[2])) {//передан ли вообще контроллер
                 $contr_name = strtolower($route[2]);
