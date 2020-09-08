@@ -5,7 +5,7 @@
 
         public function __construct()
         {
-            $this->dbh = new dbConnect('localhost', 'test','root','root');
+            $this->dbh = new dbConnect();
         }
 
         //авторизация
@@ -23,6 +23,7 @@
 
                 setcookie("login", $username);
                 setcookie("hash", $hash);
+                //todo пока что хэш в хуй не упёрся. приделать плюху, которая проверяет его при входе на сайт
 
                 return $this->dbh->Query(1,"select u.name, u.surname, u.lastname, is_admin from username u where u.username = $username");
             }else{//ну а если не совпало, то извините

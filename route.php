@@ -27,7 +27,7 @@
                 if (method_exists($controller, $action)) {//есть ли в контроллере такой метод, если есть, то вызываем
                     $controller->$action();
                 } else {
-                    //todo
+                    //todo редирект на 404. нормальный, а не тот, что ниже.
                 }
             } else {
                 include_once 'view/view404.php';
