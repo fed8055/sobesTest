@@ -12,7 +12,9 @@
                 include_once 'view/login.php';
             } else{
                 $login = new login();
-                if($_POST['userFIO'] = $login->login($_POST['login'], $_POST['password'])){
+                if($res = $login->login($_POST['login'], $_POST['password'])){
+                    $_POST['userFIO'] = $res['surname'].' '.$res['name'].' '.$res['lastname'];
+                    $_POST['is_admin'] = $res['is_admin'];
                     include_once 'view/index.php';
                     unset($_POST['login']);
                     unset($_POST['password']);

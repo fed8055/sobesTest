@@ -24,7 +24,7 @@
                 setcookie("login", $username);
                 setcookie("hash", $hash);
 
-                return $this->dbh->Query(1,"select u.name, u.surname, u.lastname from username u where u.username = $username");
+                return $this->dbh->Query(1,"select u.name, u.surname, u.lastname, is_admin from username u where u.username = $username");
             }else{//ну а если не совпало, то извините
                 return false;
             }
