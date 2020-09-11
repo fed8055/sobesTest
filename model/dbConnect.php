@@ -7,7 +7,7 @@
         private $dbh;
         private $errmsg;
 
-        public function __construct($host = '127.0.0.1', $dbname = 'sobesTest', $username = 'root', $password = 'root')
+        public function __construct($host = '127.0.0.1', $dbname = 'yiitest', $username = 'root', $password = 'root')
         {
             $this->host = $host;
             $this->dbname = $dbname;
@@ -20,7 +20,7 @@
         private function Connect(){
             if(!$this->dbh){
                 try{
-                    $this->dbh = new PDO('mysql:dbname=test;host=localhost', $this->username, $this->password);
+                    $this->dbh = new PDO("mysql:dbname=$this->dbname;host=$this->host", $this->username, $this->password);
                 }catch(PDOException $e){
                     echo 'Не удалось подключиться к БД';
                     $this->errmsg = $e->getMessage();
