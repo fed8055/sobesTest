@@ -3,8 +3,8 @@
 /* @var int $currentPage */
 /* @var array $pageCount */
 /*----------------------------регистрация/авторизация--------------------------*/
-if(!is_null($user->getLogin())):
-    echo 'Авторизован как '.$user->getLogin();
+if(isset($_SESSION['login'])):
+    echo 'Авторизован как '.$_SESSION['lastname'];
     ?>
     <a href="user/logout">Выход</a>
     <?

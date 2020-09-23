@@ -8,12 +8,12 @@
             //сравниваем, если совпало, генерируем хэш
             if($sth['0']['password'] == md5($password)){
                 $hash = md5(openssl_random_pseudo_bytes(30));
-                //пишем его в базу и в куки. почему куки? потому что я жук-самоёб.
+                //пишем его в базу и в куки.
                 $this->Query(2,"update username u set u.hash = '$hash' where u.id ='".$sth['0']['id']."'");
-                setcookie("login", $username);
-                setcookie("hash", $hash);//todo работает ли?
-
-                return $this->Query(1,"select u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$username'");
+                setcookie("login", $username, time()+999999,'/');
+                setcookie("hash", $hash, time()+999999,'/');
+                $_SESSION['cookie'] = $_COOKIE['login'];//debug
+                return $this->Query(1,"select  u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$username'");//
             }else{//ну а если не совпало, то извините
                 return false;
             }
@@ -24,7 +24,6 @@
             $login = $_COOKIE['login'];
             if($sth = $this->Query(1,"select hash from username where login = $login")){
                 $hash = $sth[0][0];
-
                 if($hash === $_COOKIE['hash']){
                     return $this->Query(1,"select u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$login'");
                 }else return false;
@@ -48,8 +47,9 @@
         }
 
         public function logout(){
-            setcookie("login", "", -10);//так ансетятся куки. сам прихуел.
-            setcookie("hash", "", -10);
+            setcookie("login", "", -10, '/');//так ансетятся куки. сам прихуел.
+            setcookie("hash", "", -10, '/');
+            session_destroy();
             unset($_POST['userFIO']);
         }
     }

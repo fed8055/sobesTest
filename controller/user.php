@@ -1,10 +1,5 @@
 <?php
     class user{
-        private $login;
-        private $firstname;
-        private $surname;
-        private $lastname;
-        private $is_admin;
 
         public function __construct()
         {
@@ -17,7 +12,7 @@
                 $model = new loginModel();
                 if($userData = $model->hashLogin()){
                     foreach ($userData[0][0] as $key => $val){
-                        $this->$$key = $val;
+                        $_SESSION[$key] = $val;
                     }
                 }
             }
@@ -32,12 +27,14 @@
                 //передать данные в модель
                 $login = new loginModel();
                 if($res = $login->login($_POST['login'], $_POST['password'])){//поймать ответ модели. если ответ положительный, то обратно на индекс
-                    foreach ($res[0][0] as $key => $val){
-                        $this->$$key = $val;
+                    foreach ($res[0] as $key => $val){
+                        $_SESSION[$key] = $val;
                     }
-                    header("location: /sobestest/index");//для возврта на главную страницу
+                    //setcookie("login", $_POST['login']);
+                    //setcookie("hash", $_POST['password']);
                     unset($_POST['login']);
                     unset($_POST['password']);
+                    header("location: /sobestest/index");//для возврта на главную страницу
                 }else{//если отрицительный, то на авторизацию
                     include_once 'view/login.php';
                     echo 'Неверный логин/пароль!';
@@ -65,15 +62,15 @@
                 if($login->register($userData)){//если ответ положительный, то обратно на индекс. ну и сделать, чтоб юзер сразу авторизован
                     $login = new loginModel();
                     $res = $login->login($_POST['login'], $_POST['password']);
-                    foreach ($res[0][0] as $key => $val){
-                        $this->$$key = $val;
+                    foreach ($res[0] as $key => $val){
+                        $_SESSION[$key] = $val;
                     }
-                    header("location: /sobestest/index");//для возврта на главную страницу
                     unset($_POST['login']);
                     unset($_POST['password']);
                     unset($_POST['name']);
                     unset($_POST['surname']);
                     unset($_POST['lastname']);
+                    header("location: /sobestest/index");//для возврта на главную страницу
                 }else{//если отрицительный, то на регистрацию
                     echo 'Такой логин уже существует!';
                     unset($_POST['login']);
@@ -92,14 +89,6 @@
             $login = new loginModel();
             $login->logout();
             header("location: /sobestest/index");//для возврта на главную страницу
-        }
-
-        /**
-         * @return mixed
-         */
-        public function getLogin()
-        {
-            return $this->login;
         }
 
         /**

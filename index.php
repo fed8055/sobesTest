@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
     spl_autoload_register(function ($class) {//автолоадер, всё как у людей
         if(file_exists($class.'.php'))
             require_once $class.'.php';
@@ -13,5 +13,4 @@
     else return false;});
 
     $user = new user();
-
     Route::Start();
