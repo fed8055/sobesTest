@@ -13,7 +13,7 @@
                 setcookie("login", $username, time()+999999,'/');
                 setcookie("hash", $hash, time()+999999,'/');
                 $_SESSION['cookie'] = $_COOKIE['login'];//debug
-                return $this->Query(1,"select  u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$username'");//
+                return $this->Query(1,"select u.id, u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$username'");//
             }else{//ну а если не совпало, то извините
                 return false;
             }
@@ -25,7 +25,7 @@
             if($sth = $this->Query(1,"select hash from username where login = $login")){
                 $hash = $sth[0][0];
                 if($hash === $_COOKIE['hash']){
-                    return $this->Query(1,"select u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$login'");
+                    return $this->Query(1,"select u.id, u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$login'");
                 }else return false;
             }else return false;
         }

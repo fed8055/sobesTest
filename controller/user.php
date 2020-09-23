@@ -30,8 +30,6 @@
                     foreach ($res[0] as $key => $val){
                         $_SESSION[$key] = $val;
                     }
-                    //setcookie("login", $_POST['login']);
-                    //setcookie("hash", $_POST['password']);
                     unset($_POST['login']);
                     unset($_POST['password']);
                     header("location: /sobestest/index");//для возврта на главную страницу
