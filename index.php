@@ -8,10 +8,10 @@
             require_once 'view/'.$class.'.php';
         elseif(file_exists( 'controller/'.$class.'.php'))
             require_once 'controller/'.$class.'.php';
+        elseif(file_exists( 'core/'.$class.'.php'))
+            require_once 'core/'.$class.'.php';
     else return false;});
 
-    Route::Start();
+    $user = new user();
 
-    //$a = new dbConnect('localhost','test','root', 'root');
-    //$a->getDbh()->query();
-    //$a->dbh->query();
+    Route::Start();

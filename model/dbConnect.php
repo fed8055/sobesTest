@@ -7,7 +7,7 @@
         private $dbh;
         private $errmsg;
 
-        public function __construct($host = '127.0.0.1', $dbname = 'yiitest', $username = 'root', $password = 'root')
+        public function __construct($host = '127.0.0.1', $dbname = 'sobes_test', $username = 'root', $password = 'root')
         {
             $this->host = $host;
             $this->dbname = $dbname;
@@ -31,11 +31,17 @@
         public function Query($type, $query){//1-select, 2-anything else
             if($type === 1){
                 $sth = $this->dbh->Query($query);
-                $sth -> Fetch(PDO::FETCH_ASSOC);
-                return $sth;
+                if($sth){
+                    $res = [];
+                    foreach ($sth as $row){
+                        $res[] = $row;
+                    }
+                    return $res;
+                }else return false;
             }elseif ($type === 2) {
+               // var_dump($query);////////////////////////////////////для дебега
                 $sth = $this->dbh->Prepare($query);
-                $sth->Execute();
+                return $sth->Execute();
             }
         }
 

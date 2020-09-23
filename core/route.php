@@ -9,10 +9,11 @@
             //site/controller/action
 
             $route = explode('/', $_SERVER['REQUEST_URI']);
-            //var_dump($_SERVER['DOCUMENT_ROOT']);
 
             if (!empty($route[2])) {//передан ли вообще контроллер
-                $contr_name = strtolower($route[2]);
+                $contr = strtolower($route[2]);
+                $contr = explode('?',$contr);//шоб отсечь гет переменные при наличии
+                $contr_name = $contr[0];
             }
 
             if (!empty($route[3])) {//передан ли экшн
@@ -31,6 +32,7 @@
                 }
             } else {
                 include_once 'view/view404.php';
+                echo '<br>'.$contr_name;
             }
         }
     }
