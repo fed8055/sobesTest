@@ -3,7 +3,7 @@
         public function add($table, $fields, $content){
             //инсерт в таблицу с занесением ид пользователя
             $createuserid = $_SESSION['id'];
-            $this->Query(2,"insert into $table ($fields, createuserid) values ($content, $createuserid)");
+            return $this->Query(2,"insert into $table ($fields, createuserid) values ($content, $createuserid)");
         }
 
         public function delete($table, $rowID){

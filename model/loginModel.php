@@ -12,9 +12,8 @@
                 $this->Query(2,"update username u set u.hash = '$hash' where u.id ='".$sth['0']['id']."'");
                 setcookie("login", $username, time()+999999,'/');
                 setcookie("hash", $hash, time()+999999,'/');
-                $_SESSION['cookie'] = $_COOKIE['login'];//debug
                 return $this->Query(1,"select u.id, u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$username'");//
-            }else{//ну а если не совпало, то извините
+            } else {//ну а если не совпало, то извините
                 return false;
             }
         }
@@ -26,18 +25,18 @@
                 $hash = $sth[0][0];
                 if($hash === $_COOKIE['hash']){
                     return $this->Query(1,"select u.id, u.login, u.firstname, u.surname, u.lastname, is_admin from username u where u.login = '$login'");
-                }else return false;
-            }else return false;
+                } else return false;
+            } else return false;
         }
 
         //регистрация
         public function register(array $userData)
         {
-            /* @var string $username*/
-            /* @var string $password*/
-            /* @var string $name*/
-            /* @var string $surname*/
-            /* @var string $lastname*/
+            /* @var string $username */
+            /* @var string $password */
+            /* @var string $name */
+            /* @var string $surname */
+            /* @var string $lastname */
             extract($userData);
             $password = md5($password);
             //проверить что такого юзера нет не надо, в базе уникальный индекс на поле login, оно не сработает

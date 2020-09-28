@@ -11,6 +11,7 @@
             if(isset($_COOKIE['login']) and isset($_COOKIE['hash'])){
                 $model = new loginModel();
                 if($userData = $model->hashLogin()){
+                    var_dump($userData);
                     foreach ($userData[0][0] as $key => $val){
                         $_SESSION[$key] = $val;
                     }

@@ -3,10 +3,7 @@
         public $pageCount;
 
         public function action_index(){
-            //если я вызову отсюда вьюху, то во вьюхе будут доступны местные переменные
-            //нетривиальная хуйня доложу я вам, еле допёр
-
-            if(!isset($_GET['page']))
+            if(!isset($_GET['page']))//распознавание номера страницы
                 $currentPage = 1;
             else
                 $currentPage = $_GET['page'];
@@ -14,10 +11,10 @@
             if(isset($_POST['asc'])) $order = 'asc';//какая сортировка списка выбрана
             if(isset($_POST['desc'])) $order = 'desc';
 
-            $pages = $this->indexContentPage(5, is_null($order)?'asc':$order);
+            $pages = $this->indexContentPage(5, is_null($order)?'asc':$order);//так параметры передадаутся во вьюху
             $pageCount = $this->pageCount;
 
-            include_once 'view/index.php';
+            include_once 'view/index.php';//вызов вьюхи
         }
 
         private function indexContentPage($n, $order = 'asc'){
