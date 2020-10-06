@@ -24,22 +24,33 @@ endif;?>
     <br>
     <a href="content/add/?name=content&field=content">Добавить</a>
 <?php endif;?>
-
+<!------------------------пагинатор------------------------------>
 <form name="order" method="post">
     <input type= "submit" name = "asc" value = "Прямой порядок">
     <input type= "submit" name = "desc" value = "Обратный порядок">
 </form>
 
-<? foreach ($pages as $page):?>
-    <p><?echo $page['content'] ?></p>
-<?endforeach;?>
+<?php foreach ($pages as $page):?>
+    <p>
+        <?php //todo переделать, чтоб и создатель мог удалить свою запись
+        if($_SESSION['is_admin'] == 1):?>
+            <form method="post" action="content/delete">
+                <input type="hidden" name="table" value="content">
+                <button type="submit" name="delete" value="<?=$page['id']?>">Удалить</button>
+            </form>
+        <?endif;
+        echo $page['content'];
+        ?>
+    </p>
+<?php endforeach;?>
 
-<?if($currentPage > 1):?>
+<?php if($currentPage > 1):?>
     <a href = "index?page=<?=$currentPage - 1?>"><</a>
-<? endif;
+<?php endif;
 
 if($currentPage < $pageCount):?>
     <a href = "index?page=<?=$currentPage + 1?>">></a>
 <? endif;?>
+<!------------------------пагинатор------------------------------>
 <!-- ----------------------------контент------------------------ -->
 

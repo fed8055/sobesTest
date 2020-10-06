@@ -8,18 +8,25 @@
             else
                 $currentPage = $_GET['page'];
 
-            if(isset($_POST['asc'])) $order = 'asc';//какая сортировка списка выбрана
-            if(isset($_POST['desc'])) $order = 'desc';
+            if(isset($_POST['asc'])) //какая сортировка списка выбрана
+                $order = 'asc';
+            elseif(isset($_POST['desc']))
+                $order = 'desc';
 
-            $pages = $this->indexContentPage(5, is_null($order)?'asc':$order);//так параметры передадаутся во вьюху
+            /* @var string $order */
+            $pages = $this->indexContentPage(5, is_null($order)?'asc':$order);
             $pageCount = $this->pageCount;
 
-            include_once 'view/index.php';//вызов вьюхи
+            $a = ['pages'=> $pages,
+                'pageCount'=>$pageCount,
+                'currentPage'=>$currentPage];
+
+            view::Render('view/index.php', $a);
         }
 
         private function indexContentPage($n, $order = 'asc'){
             $page = new paginateList();
-            $a = $page->getPage($n,'content','content', $order);
+            $a = $page->getPage($n,'content','id, content', $order);
             $this->pageCount = $page->getPageCount();//такая последовательность чтоб заполнялась переменная PageCount
             return $a;
         }

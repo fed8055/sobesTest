@@ -41,7 +41,6 @@
             $password = md5($password);
             //проверить что такого юзера нет не надо, в базе уникальный индекс на поле login, оно не сработает
             //todo сделать проверку на то, занеслось ли
-            //занести в базу внесённые данные, вернуть правду/лож
             return $this->Query(2, "insert into username (login, password, firstname, surname, lastname) values ('$username', '$password', '$name', '$surname', '$lastname')");
         }
 
