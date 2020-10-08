@@ -20,11 +20,11 @@
             $a = ['pages'=> $pages,
                 'pageCount'=>$pageCount,
                 'currentPage'=>$currentPage];
-
-            view::Render('view/index.php', $a);
+            var_dump($_POST);
+            view::Render('view/paginateView.php', $a);
         }
 
-        private function indexContentPage($n, $order = 'asc'){
+        private function indexContentPage($n, $order){
             $page = new paginateList();
             $a = $page->getPage($n,'content','id, content', $order);
             $this->pageCount = $page->getPageCount();//такая последовательность чтоб заполнялась переменная PageCount

@@ -13,4 +13,4 @@
     else return false;});
 
     $user = new user();
-    Route::Start();
+    view::Render('view/index.php');

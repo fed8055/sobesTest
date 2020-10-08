@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+}
+.topbar{
+    border-bottom: 2px solid black;
+    top: 0;
+    position: static;
+    height: 5%;
+    background-color: blueviolet;
+    right: 0;
+}
+.sidebar{
+    position: absolute;
+    left: 0;
+    border-right: 2px solid black;
+    width: 4%;
+    height: 90%;
+    background-color: bisque;
+}
+.content{
+    position: relative;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+}
+.bottom{
+    border-top: 2px solid black;
+    position: static;
+    bottom: 30pt;
+    width: 100%;
+    background-color: blueviolet;
+}

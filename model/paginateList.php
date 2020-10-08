@@ -10,7 +10,7 @@
 
             $startIndex = ($currentPage * $postCount) - $postCount;
 
-            $q = $this->Query(1,"select count(id) from $table");
+            $q = $this->Query(1,"select count(id) from $table where is_deleted = 0");
             foreach($q as $row) {
                 $this->pageCount = ceil($row[0] / $postCount);//количество страниц
             }

@@ -1,56 +1,49 @@
-<?php
-/* @var array $pages */
-/* @var int $currentPage */
-/* @var array $pageCount */
-/*----------------------------регистрация/авторизация--------------------------*/
-if(isset($_SESSION['login'])):
-    echo 'Авторизован как '.$_SESSION['lastname'];
-    ?>
-    <p>
-        <a href="user/logout">Выход</a>
-    </p>
-    <?
-else:
-    ?>
-    <a href="user/login">Авторизация</a>
-    <a href="user/register">Регистрация</a>
-    <?
-endif;?>
+<html>
+    <head>
+        <link rel="stylesheet" href="view/css/main_style.css">
+    </head>
+    <body>
+        <div class="topbar">
+            <div style="position: absolute; right: 2% ">
+                <?php
+                    if(isset($_SESSION['login'])):
+                        echo 'Авторизован как '.$_SESSION['lastname'].'<br>';
+                ?>
+                    <a href="user/logout">Выход</a>
+                <?php
+                    else:
+                ?>
+                    <a href="user/login">Авторизация</a>
+                    <a href="user/register">Регистрация</a>
+                <?php endif;?>
+            </div>
+        </div>
+        <!----------------------------регистрация/авторизация---------------------------->
 
-<!----------------------------регистрация/авторизация---------------------------->
+        <!-------------------------сайдбар------------------------>
+        <div class = "sidebar">
+            <p>
+                главная
+            </p>
+            <p>
+                other shit
+            </p>
+        </div>
+        <!-------------------------сайдбар------------------------>
 
-<!-- ----------------------------контент------------------------>
-<?php if(isset($_SESSION['login'])):?>
-    <br>
-    <a href="content/add/?name=content&field=content">Добавить</a>
-<?php endif;?>
-<!------------------------пагинатор------------------------------>
-<form name="order" method="post">
-    <input type= "submit" name = "asc" value = "Прямой порядок">
-    <input type= "submit" name = "desc" value = "Обратный порядок">
-</form>
+        <!------------------------------контент------------------------>
+        <div class="content">
+            <?php
+                Route::Start();//todo так это работат не будет, заголовки мешают
+            ?>
+        </div>
+        <!------------------------------контент-------------------------->
 
-<?php foreach ($pages as $page):?>
-    <p>
-        <?php //todo переделать, чтоб и создатель мог удалить свою запись
-        if($_SESSION['is_admin'] == 1):?>
-            <form method="post" action="content/delete">
-                <input type="hidden" name="table" value="content">
-                <button type="submit" name="delete" value="<?=$page['id']?>">Удалить</button>
-            </form>
-        <?endif;
-        echo $page['content'];
-        ?>
-    </p>
-<?php endforeach;?>
-
-<?php if($currentPage > 1):?>
-    <a href = "index?page=<?=$currentPage - 1?>"><</a>
-<?php endif;
-
-if($currentPage < $pageCount):?>
-    <a href = "index?page=<?=$currentPage + 1?>">></a>
-<? endif;?>
-<!------------------------пагинатор------------------------------>
-<!-- ----------------------------контент------------------------ -->
-
+        <!------------------------------(бикини)боттом-------------------------->
+        <div class="bottom">
+            <p style="position: absolute; left: 10%">сделано с любовью</p>
+            <p style="position: absolute; right: 10%">но через жопу</p>
+        </div>
+        <!-- ----------------------------(бикини)боттом-------------------------->
+    </body>
+</html>
