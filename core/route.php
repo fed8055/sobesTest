@@ -7,7 +7,6 @@
             $action = 'index';
 
             //site/controller/action
-
             $route = explode('/', $_SERVER['REQUEST_URI']);
 
             if (!empty($route[2])) {//передан ли вообще контроллер

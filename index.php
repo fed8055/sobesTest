@@ -12,5 +12,5 @@
             require_once 'core/'.$class.'.php';
     else return false;});
 
-    $user = new user();
-    view::Render('view/index.php');
+    Route::Start();
+//var_dump($_SERVER['REQUEST_URI']);

@@ -3,21 +3,19 @@
 /* @var int $currentPage */
 /* @var array $pageCount */
 
-if(isset($_SESSION['login'])):?>
+include_once 'core/application.php';
+if($user->getLogin()):?>
     <br>
     <a href="content/add/?name=content&field=content">Добавить</a>
 <?php endif;?>
 
-<!------------------------пагинатор------------------------------>
-<form name="order" method="post" style="position: absolute; right: 0 ; top: 10pt ">
-    <input type= "submit" name = "asc" value = "Прямой порядок"><!--todo перепиздячить в одну кнопку-->
-    <input type= "submit" name = "desc" value = "Обратный порядок"><br>
-    будет перепиздячено<br>
-    в одну кнопку<br>
-    потом<br>
-    возможно
-</form>
+<script src="http://localhost/sobestest/JS/pagination.js"></script>
 
+<!------------------------пагинатор------------------------------>
+<!--кнопка смены сортировки-->
+<div id="orderDiv"></div>
+
+<!--собственно вывод всей хуйни. и её удаление. при желании. и возможности.-->
 <table>
     <?php foreach ($pages as $page):?>
         <tr><td>

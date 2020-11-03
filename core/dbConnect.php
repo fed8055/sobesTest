@@ -4,16 +4,17 @@
         private $password;
         private $dbname;
         private $host;
-        private $dbh;
+        protected $dbh;
         private $errmsg;
 
-        public function __construct($host = '127.0.0.1', $dbname = 'sobes_test', $username = 'root', $password = 'root')
-        {
-            $this->host = $host;
-            $this->dbname = $dbname;
-            $this->username = $username;
-            $this->password = $password;
-
+        public function __construct(){
+            if($file = file($_SERVER['DOCUMENT_ROOT'].'/sobestest/config.conf')) {
+                foreach ($file as $value){
+                    $a = explode('=', $value);
+                    $val = trim($a[0]);
+                    $this->$val = trim($a[1]);
+                }
+            }else echo 'файл не найден ';
             self::Connect();
         }
 
@@ -28,8 +29,8 @@
             }
         }
 
-        public function Query($type, $query){//1-select, 2-anything else
-            if($type === 1){
+        /*public function Query($type, $query){//ret - returning parameters; noret - nothing returns
+            if($type === 'ret'){
                 $sth = $this->dbh->Query($query);
                 if($sth){
                     $res = [];
@@ -38,12 +39,12 @@
                     }
                     return $res;
                 }else return false;
-            }elseif ($type === 2) {
+            }elseif ($type === 'noret') {
                // var_dump($query);////////////////////////////////////для дебега
                 $sth = $this->dbh->Prepare($query);
                 return $sth->Execute();
             }
-        }
+        }*/
 
         public function getErrmsg()
         {
@@ -55,9 +56,9 @@
             return $this->dbh;
         }
 
-        public function __get($value) {//yay, magic!
+       /* public function __get($value) {//yay, magic!
             $test =  'get' . $value;
             return($this->$test);
-        }
+        }*/
 
     }

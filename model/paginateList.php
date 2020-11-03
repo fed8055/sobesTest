@@ -1,26 +1,19 @@
 <?php
-    class paginateList extends dbConnect {
-        private $pageCount;
+    class paginateList extends dbExchange {
 
-        public function getPage($postCount, $table, $fields, $order = 'asc'){
-            if(!isset($_GET['page']))
-                $currentPage = 1;
-            else
-                $currentPage = $_GET['page'];
+        public function getPageContent($postPerPageCount, $currentPage, $table, $fields, $order){
+            $startIndex = ($currentPage * $postPerPageCount) - $postPerPageCount;
 
-            $startIndex = ($currentPage * $postCount) - $postCount;
-
-            $q = $this->Query(1,"select count(id) from $table where is_deleted = 0");
-            foreach($q as $row) {
-                $this->pageCount = ceil($row[0] / $postCount);//количество страниц
-            }
-
-            if(isset($_POST['seeDeleted'])) return $this->query(1,"select $fields from $table order by id $order limit $startIndex, $postCount");
-                else return $this->query(1,"select $fields from $table where is_deleted = 0 order by id $order limit $startIndex, $postCount");
-
+            //todo не проебать при допиливании вывода удалённых
+            if(isset($_POST['seeDeleted'])) return $this->query('ret',"select $fields from $table order by id $order limit $startIndex, $postPerPageCount");
+                else return $this->query('ret',"select $fields from $table where is_deleted = 0 order by id $order limit $startIndex, $postPerPageCount");
         }
 
-        public function getPageCount(){
-            return $this->pageCount;
+        public function getPageCount($postPerPageCount, $currentPage, $table){//количество страниц
+            $startIndex = ($currentPage * $postPerPageCount) - $postPerPageCount;
+            $q = $this->Query('ret',"select count(id) from $table where is_deleted = 0");
+            foreach($q as $row) {
+                return ceil($row[0] / $postPerPageCount);
+            }
         }
     }
