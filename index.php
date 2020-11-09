@@ -12,5 +12,6 @@
             require_once 'core/'.$class.'.php';
     else return false;});
 
-    Route::Start();
-//var_dump($_SERVER['REQUEST_URI']);
+require_once 'core/application.php';
+
+Route::Start();

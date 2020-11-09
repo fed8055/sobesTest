@@ -6,14 +6,20 @@ $(document).ready(function(){
         $.ajax({
             type:'post',
             url:'user/login',
-            data:{login:login,
-                password:password},
+            dataType:'json',
+            data:{
+                login:login,
+                password:password
+            },
+            error: function (e) {
+                console.log(e);
+            }
         }).done(function (msg) {
-            alert(msg);
-            if (msg === true){
+            console.log(msg);
+            if (msg['success'] == true){
                 popUpHide('#auth');
                 location.reload();/////////////https://www.phpied.com/files/location-location/location-location.html
-            }else if(msg === false){
+            }else if(msg['success'] == false){
                 $('#error').html('ОШИБКА!');
             }
         })

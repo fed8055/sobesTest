@@ -1,3 +1,6 @@
+<?php
+/* @var string $output */
+?>
 <html>
     <head>
         <link rel="stylesheet" href="http://localhost/sobestest/view/css/main_style.css">
@@ -5,14 +8,13 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="http://localhost/sobestest/JS/popUps.js"></script>
         <script src="http://localhost/sobestest/JS/auth.js"></script>
-        <script src="http://localhost/sobestest/JS/pagination.js"></script>
     </head>
     <body>
         <div class="topbar">
             <div class="auth" style="position: absolute; right: 2% ">
                 <?php
-                    if(isset($_SESSION['login']))://todo переделать на забор данных из модели
-                        echo 'Авторизован как '.$_SESSION['lastname'].'<br>';
+                    if(!is_null(utils::Session('login'))):
+                        echo 'Авторизован как '.utils::Session('login').'<br>';
                 ?>
                     <button id="logout">Выход</button>
                 <?php
@@ -35,7 +37,7 @@
         </div>
 
         <div id="reg" class="b-popup">
-            <div name="register_form"  class="b-popup-content">
+            <div class="b-popup-content">
                 <input type="text" id="login" name="login" placeholder="логин"><br>
                 <input type="password" id="password" name="password" placeholder="пароль"><br>
                 <input type="text" id="name" name="name" placeholder="Имя"><br>
@@ -64,10 +66,9 @@
 
         <!------------------------------контент------------------------>
         <div id="content" class="content">
-            <div id="output"></div>
+            <div id="output"><?=$output?></div>
         </div>
         <!------------------------------контент-------------------------->
-
         <!------------------------------(бикини)боттом-------------------------->
         <div class="bottom">
             <p style="position: absolute; left: 10%">сделано с любовью</p>

@@ -6,8 +6,9 @@
         private $host;
         protected $dbh;
         private $errmsg;
+        private static $instance;
 
-        public function __construct(){
+        private function __construct(){
             if($file = file($_SERVER['DOCUMENT_ROOT'].'/sobestest/config.conf')) {
                 foreach ($file as $value){
                     $a = explode('=', $value);
@@ -15,36 +16,30 @@
                     $this->$val = trim($a[1]);
                 }
             }else echo 'файл не найден ';
-            self::Connect();
+//            self::Connect();
         }
 
-        private function Connect(){
+        public static function instance()  {
+            if(self::$instance === null)
+                self::$instance = new self;
+
+            return self::$instance;
+        }
+
+        public function Connect(){
             if(!$this->dbh){
                 try{
                     $this->dbh = new PDO("mysql:dbname=$this->dbname;host=$this->host", $this->username, $this->password);
                 }catch(PDOException $e){
                     echo 'Не удалось подключиться к БД';
                     $this->errmsg = $e->getMessage();
+                    var_dump($this->errmsg);
                 }
             }
-        }
 
-        /*public function Query($type, $query){//ret - returning parameters; noret - nothing returns
-            if($type === 'ret'){
-                $sth = $this->dbh->Query($query);
-                if($sth){
-                    $res = [];
-                    foreach ($sth as $row){
-                        $res[] = $row;
-                    }
-                    return $res;
-                }else return false;
-            }elseif ($type === 'noret') {
-               // var_dump($query);////////////////////////////////////для дебега
-                $sth = $this->dbh->Prepare($query);
-                return $sth->Execute();
-            }
-        }*/
+            if($this->dbh)
+                return $this->dbh;
+        }
 
         public function getErrmsg()
         {
@@ -55,10 +50,4 @@
         {
             return $this->dbh;
         }
-
-       /* public function __get($value) {//yay, magic!
-            $test =  'get' . $value;
-            return($this->$test);
-        }*/
-
     }

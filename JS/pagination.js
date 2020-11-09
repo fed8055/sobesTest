@@ -1,38 +1,37 @@
-$(document).ready(function () {
-    $('#order').click(function (e) {//СМЕНА СОРТИРОВКИ
-        if(this.value === 'asc'){
-            this.value = 'desc';
-            this.innerHTML = 'По убыванию';
+/*function clickOrder(elem) {
+        if($(elem).val() === 'asc'){
+            $(elem).val('desc');
+            $(elem).html('По убыванию');
             pagination();
-        }else if(this.value === 'desc'){
-            this.value = 'asc';
-            this.innerHTML ='По возрастанию';
+        }else if($(elem).val() === 'desc'){
+            $(elem).val('asc');
+            $(elem).html('По возрастанию');
             pagination();
         }
-    });
-});
+}
 
-
-function pagination(page) {
+function pagination() {
     var val;
-    if (document.getElementById('#order')) {
-        val = document.getElementById('#order').value;
+    if ($('#order').val()) {
+        val = $('#order').val()
     } else {
         val = 'asc';
-        document.getElementById("#orderDiv").html('<button id="order" value="asc">По возрастанию</button>');//ДАЁБАНЫЙВРОТСУКАНАХУЙБЛЯТЬ
+         //$('#test').html('<button id="order" onclick="clickOrder(this)" value="asc">По возрастанию</button>');
     }
     $.ajax({
         type: 'post',
         url: 'paginationController/',
+        dataType:'html',
         data: {
             table: 'content',
             fields: 'id, content',
             order: val,
-            postPerPage: 5,
             pageNum: page,
         },
-        success: function (msg) {
+        success: function (html) {
+            //$('#test').html(html);
+
             $("#output").html(msg);
         }
     });
-}
+}*/

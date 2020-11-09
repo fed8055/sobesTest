@@ -2,8 +2,9 @@
 /* @var array $pages */
 /* @var int $currentPage */
 /* @var array $pageCount */
+/* @var array $orderButton */
 
-include_once 'core/application.php';
+global $user;
 if($user->getLogin()):?>
     <br>
     <a href="content/add/?name=content&field=content">Добавить</a>
@@ -13,7 +14,7 @@ if($user->getLogin()):?>
 
 <!------------------------пагинатор------------------------------>
 <!--кнопка смены сортировки-->
-<div id="orderDiv"></div>
+<div id="orderDiv"><?=$orderButton?></div>
 
 <!--собственно вывод всей хуйни. и её удаление. при желании. и возможности.-->
 <table>
@@ -35,10 +36,10 @@ if($user->getLogin()):?>
 </table>
 
 <?php if($currentPage > 1):?>
-    <a href = "index?page=<?=$currentPage - 1?>"><</a>
+    <a href = "index?page=<?=$currentPage - 1?>&order=<?=$_GET['order']?>"><</a>
 <?php endif;
 
 if($currentPage < $pageCount):?>
-    <a href = "index?page=<?=$currentPage + 1?>">></a>
+    <a href = "index?page=<?=$currentPage + 1?>&order=<?=$_GET['order']?>">></a>
 <? endif;?>
 <!------------------------пагинатор------------------------------>
